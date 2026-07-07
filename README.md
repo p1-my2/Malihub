@@ -1,79 +1,79 @@
-# Malihub — Flutter Frontend (v2)
+# Malihub — Flutter Frontend
 
-A rebuilt, expanded version of the Malihub frontend: more screens than the
-original wireframes, a distinct visual identity, and the wallet logo wired
-in as the actual app icon.
+A personal finance app built with Flutter, featuring a custom design system, hand-drawn data visualizations, and a complete screen flow from splash to analytics.
 
-## What's new vs. the original wireframes
+## Design System
 
-**Design system.** A real palette instead of "green + white": forest green
-(`#1F8A4C`), a deep forest for depth, a muted gold reserved for milestones
-and goals reached, ink-green text instead of flat black, and a brick red
-for expenses. One signature visual motif — a circular progress **ring** —
-recurs across Budget, Savings, and Analytics so "Hub" reads as an actual
-shape, not just a word in the name. See `lib/theme/app_colors.dart` and
-`lib/theme/app_text.dart`.
+The app uses a curated palette built around forest green (`#1F8A4C`), with a deeper forest shade for depth, muted gold for milestones and completed goals, ink-green text in place of flat black, and brick red for expense indicators.
 
-**New screens, beyond the original five:**
-- **Splash** — brief branded launch animation
-- **Onboarding** — 3-slide first-run intro with custom-drawn illustrations
-- **Forgot Password** — completes the link that was on the Login screen but didn't go anywhere
-- **Profile** — a real settings screen (reached via the Dashboard avatar), replacing a bare logout dialog
-- **Notifications** — budget alerts, goal milestones, spending tips (reached via the bell icon)
-- **Transaction Detail** — tap any row in History to view/edit/delete
-- **Analytics / Insights** — new bottom-nav tab: spending by category (hand-drawn donut chart) and a month-over-month comparison
+A circular progress **ring** serves as the signature visual motif across Budget, Savings, and Analytics, giving "Hub" a tangible shape rather than treating it as purely nominal. See `lib/theme/app_colors.dart` and `lib/theme/app_text.dart` for the full palette and type scale.
 
-**Refined screens:** Login, Registration, Dashboard, Transactions, Budget
-Planner all carry the new palette, the ring motif, and a shared logo widget.
+## Features
 
-## App icon
+### Screens
+- **Splash** — branded launch animation on app startup
+- **Onboarding** — 3-slide first-run intro with custom illustrations
+- **Login / Registration / Forgot Password** — complete auth flow
+- **Dashboard** — overview with avatar-linked profile access
+- **Transactions** — full history with tap-to-detail navigation
+- **Transaction Detail** — view, edit, or delete any transaction
+- **Budget Planner** — category-based budget allocation with progress rings
+- **Analytics / Insights** — spending breakdown via hand-drawn donut chart and month-over-month comparison; accessible via bottom navigation
+- **Profile** — settings screen reached through the Dashboard avatar
+- **Notifications** — budget alerts, goal milestones, and spending tips; reached via the bell icon
 
-The wallet mark from the Login screen's header badge is now the actual
-Android launcher icon — see `android_app_icon/README.md` for exact install
-steps into your existing project. Short version: copy the generated PNGs
-into your `android/app/src/main/res/mipmap-*/` folders, set one color value,
-`flutter clean`, rebuild. Full detail is in that README, including why a
-launcher icon needs three PNGs per screen density instead of one (Android's
-adaptive icon system) and what LDPlayer does when it caches the old icon.
+### Navigation
+Bottom navigation with four tabs: Home, Transactions, Insights, and Budget.
 
-Since you're on Windows, iOS icon setup isn't included — that needs Xcode
-on a Mac. A flat 1024×1024 master PNG is included for whenever that becomes
-relevant.
+### Visual System
+- `ring_progress.dart` — reusable circular progress indicator used across budgets, savings, and category breakdowns
+- `donut_chart.dart` — multi-slice ring chart for Analytics, drawn with `CustomPainter`
+- `malihub_logo.dart` — shared brand mark, consistent with the app launcher icon
 
-## Running it in VS Code
+## App Icon
 
-Same as before:
-```
+The wallet mark from the Login header is used as the Android launcher icon. Setup steps are in `android_app_icon/README.md`:
+
+1. Copy the generated PNGs into `android/app/src/main/res/mipmap-*/`
+2. Set the color value in the project config
+3. Run `flutter clean` and rebuild
+
+The README also covers Android's adaptive icon system (three PNGs per screen density) and LDPlayer icon caching behavior.
+
+A flat 1024×1024 master PNG is included for iOS icon generation (requires Xcode on macOS).
+
+## Running Locally
+
+```bash
 flutter pub get
 flutter run
 ```
-No new dependencies were added — the donut chart and rings are hand-drawn
-with Flutter's `CustomPainter` rather than an external chart package, so
-there's nothing extra to install.
 
-## Project structure
+No additional dependencies are required — all charts and rings are implemented with Flutter's `CustomPainter`, so no external chart packages are needed.
+
+## Project Structure
 
 ```
 lib/
-  main.dart                        # Entry point — starts at Splash
+  main.dart                        # Entry point; routes to Splash
   theme/
-    app_colors.dart                # Palette
+    app_colors.dart                # Palette definitions
     app_text.dart                  # Type scale, spacing, shadows
     app_theme.dart                 # ThemeData
   widgets/
-    malihub_logo.dart              # The brand mark (same design as the app icon)
-    ring_progress.dart             # Signature ring — budgets, savings, category breakdown
-    donut_chart.dart                # Multi-slice ring for Analytics
+    malihub_logo.dart              # Brand mark
+    ring_progress.dart             # Circular progress ring
+    donut_chart.dart               # Multi-slice ring chart
     app_text_field.dart
     stat_tile.dart
-    malihub_bottom_nav.dart        # Now 4 tabs: Home, Transactions, Insights, Budget
+    malihub_bottom_nav.dart        # 4-tab navigation
   screens/
     splash_screen.dart
     onboarding_screen.dart
     login_screen.dart
     forgot_password_screen.dart
     registration_screen.dart
-    main_shell.dart                 # Bottom-nav container
+    main_shell.dart                # Bottom-nav container
     dashboard_screen.dart
     transactions_screen.dart
     transaction_detail_screen.dart
@@ -81,26 +81,17 @@ lib/
     budget_planner_screen.dart
     profile_screen.dart
     notifications_screen.dart
-android_app_icon/                   # Generated launcher icon PNGs + install steps
+android_app_icon/                   # Launcher icon assets and setup guide
 ```
 
-## Backend integration — what to do when your team's endpoints are ready
+## Backend Integration
 
-Every screen with mock data has a `// TODO` comment naming the exact
-endpoint it expects (method, path, request/response shape). Search for
-`TODO` across `lib/` to find all of them. A few worth flagging specifically:
+Screens currently using mock data include `// TODO` comments specifying the expected endpoint (method, path, and request/response shape). Search `lib/` for `TODO` to locate all integration points.
 
-- **Category Budgets** (Budget Planner screen) assumes a budget can have
-  many category allocations. That's the open design question on
-  budget-category cardinality (one category vs. a join table) — the UI
-  works either way, but confirm with the backend/database team before
-  wiring it up for real.
-- **Notifications** tapping doesn't deep-link anywhere yet — whether it
-  should depends on the still-open `budget_id`/`goal_id` columns question
-  on the notification table.
-- **Analytics** expects a category-aggregation endpoint that doesn't exist
-  yet in your current API surface (e.g. `GET /api/transactions/summary`) —
-  worth raising with your backend dev since it's new, not in the original scope.
+Notable considerations:
 
-When you're ready to wire any of these up, bring me the actual endpoint
-shapes your team settles on and we'll replace the mock data together.
+- **Category Budgets** (`budget_planner_screen.dart`) assumes a budget supports multiple category allocations. Confirm the budget-category cardinality (single category vs. join table) with your backend team before wiring up real data.
+- **Notifications** tapping does not currently deep-link. Whether it should depends on the open question of adding `budget_id`/`goal_id` columns to the notification table.
+- **Analytics** expects a category-aggregation endpoint (e.g., `GET /api/transactions/summary`) that may not exist in the current API surface. This is worth raising with the backend team as it extends beyond the original scope.
+
+Once your team finalizes the endpoint contracts, the mock data can be replaced with live API calls.
