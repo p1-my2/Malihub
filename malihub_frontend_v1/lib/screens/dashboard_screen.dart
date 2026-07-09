@@ -27,12 +27,28 @@ class DashboardScreen extends StatelessWidget {
     const totalExpenses = 'KES 24,650';
     const savingsSaved = 52350;
     const savingsTarget = 20000;
-    final savingsProgress = (savingsSaved / savingsTarget).clamp(0.0, 1.0).toDouble();
+    final savingsProgress =
+        (savingsSaved / savingsTarget).clamp(0.0, 1.0).toDouble();
 
     final recentTransactions = [
-      _TransactionMock(title: 'Salary', date: '1 Jun 2026', amount: '+KES 65,000', isIncome: true, icon: Icons.trending_up_rounded),
-      _TransactionMock(title: 'Groceries', date: '3 Jun 2026', amount: '-KES 4,200', isIncome: false, icon: Icons.shopping_cart_outlined),
-      _TransactionMock(title: 'Freelance Gig', date: '5 Jun 2026', amount: '+KES 12,000', isIncome: true, icon: Icons.trending_up_rounded),
+      _TransactionMock(
+          title: 'Salary',
+          date: '1 Jun 2026',
+          amount: '+KES 65,000',
+          isIncome: true,
+          icon: Icons.trending_up_rounded),
+      _TransactionMock(
+          title: 'Groceries',
+          date: '3 Jun 2026',
+          amount: '-KES 4,200',
+          isIncome: false,
+          icon: Icons.shopping_cart_outlined),
+      _TransactionMock(
+          title: 'Freelance Gig',
+          date: '5 Jun 2026',
+          amount: '+KES 12,000',
+          isIncome: true,
+          icon: Icons.trending_up_rounded),
     ];
 
     return Scaffold(
@@ -47,44 +63,63 @@ class DashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
                 decoration: const BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(28),
+                      bottomRight: Radius.circular(28)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Good morning 👋', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                            children: [
+                              Text('Good morning 👋',
+                                  style: TextStyle(
+                                      color: Colors.white70, fontSize: 13)),
                               SizedBox(height: 2),
-                              Text(userName, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                              Text(userName,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
                         InkWell(
                           borderRadius: BorderRadius.circular(20),
-                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NotificationsScreen())),
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (_) => const NotificationsScreen())),
                           child: Container(
                             width: 40,
                             height: 40,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(color: Colors.white.withOpacity(0.16), shape: BoxShape.circle),
-                            child: const Icon(Icons.notifications_none_rounded, color: Colors.white, size: 20),
+                            decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.16),
+                                shape: BoxShape.circle),
+                            child: const Icon(Icons.notifications_none_rounded,
+                                color: Colors.white, size: 20),
                           ),
                         ),
                         const SizedBox(width: 10),
                         InkWell(
                           borderRadius: BorderRadius.circular(20),
                           onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => ProfileScreen(onLogout: onLogout ?? () {})),
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    ProfileScreen(onLogout: onLogout ?? () {})),
                           ),
                           child: CircleAvatar(
                             radius: 20,
-                            backgroundColor: Colors.white.withOpacity(0.2),
-                            child: const Text(initials, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            backgroundColor:
+                                Colors.white.withValues(alpha: 0.2),
+                            child: const Text(initials,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                           ),
                         ),
                       ],
@@ -93,15 +128,25 @@ class DashboardScreen extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(color: Colors.white.withOpacity(0.12), borderRadius: BorderRadius.circular(18)),
-                      child: Column(
+                      decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(18)),
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('Current Balance', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                        children: [
+                          Text('Current Balance',
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 13)),
                           SizedBox(height: 6),
-                          Text(currentBalance, style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                          Text(currentBalance,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold)),
                           SizedBox(height: 4),
-                          Text('Updated just now', style: TextStyle(color: Colors.white60, fontSize: 11)),
+                          Text('Updated just now',
+                              style: TextStyle(
+                                  color: Colors.white60, fontSize: 11)),
                         ],
                       ),
                     ),
@@ -119,15 +164,22 @@ class DashboardScreen extends StatelessWidget {
                     // read on how this month compares to last, not just raw numbers.
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.goldPale, borderRadius: BorderRadius.circular(16)),
-                      child: Row(
+                      decoration: BoxDecoration(
+                          color: AppColors.goldPale,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: const Row(
                         children: [
-                          const Icon(Icons.auto_graph_rounded, color: AppColors.goldDeep, size: 22),
-                          const SizedBox(width: 12),
+                          Icon(Icons.auto_graph_rounded,
+                              color: AppColors.goldDeep, size: 22),
+                          SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               "You've spent 12% less than last month. Keep it up.",
-                              style: const TextStyle(fontSize: 13, color: AppColors.goldDeep, fontWeight: FontWeight.w500, height: 1.4),
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: AppColors.goldDeep,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.4),
                             ),
                           ),
                         ],
@@ -135,7 +187,7 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: StatTile(
@@ -146,7 +198,7 @@ class DashboardScreen extends StatelessWidget {
                             iconBackground: AppColors.incomePale,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Expanded(
                           child: StatTile(
                             label: 'Total Expenses',
@@ -163,7 +215,10 @@ class DashboardScreen extends StatelessWidget {
                     // Savings goal — uses the signature ring motif.
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Row(
                         children: [
                           RingProgress(
@@ -173,17 +228,30 @@ class DashboardScreen extends StatelessWidget {
                             color: AppColors.gold,
                             trackColor: AppColors.goldPale,
                             center: Text('${(savingsProgress * 100).round()}%',
-                                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.goldDeep)),
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.goldDeep)),
                           ),
                           const SizedBox(width: 16),
-                          Expanded(
+                          const Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text('Savings Goal', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: AppColors.textPrimary)),
+                              children: [
+                                Text('Savings Goal',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                        color: AppColors.textPrimary)),
                                 SizedBox(height: 4),
-                                Text('KES 52,350 saved', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                                Text('Target: KES 20,000', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                Text('KES 52,350 saved',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary)),
+                                Text('Target: KES 20,000',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary)),
                               ],
                             ),
                           ),
@@ -201,14 +269,16 @@ class DashboardScreen extends StatelessWidget {
                             onPressed: () => onNavigate?.call(1),
                             icon: const Icon(Icons.add, size: 18),
                             label: const Text('Add Transaction'),
-                            style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size.fromHeight(48)),
                           ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () => onNavigate?.call(3),
-                            icon: const Icon(Icons.pie_chart_outline_rounded, size: 18),
+                            icon: const Icon(Icons.pie_chart_outline_rounded,
+                                size: 18),
                             label: const Text('Budget Planner'),
                             style: OutlinedButton.styleFrom(
                               minimumSize: const Size.fromHeight(48),
@@ -225,13 +295,17 @@ class DashboardScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Recent Transactions', style: AppText.sectionTitle),
+                        const Text('Recent Transactions',
+                            style: AppText.sectionTitle),
                         GestureDetector(
                           onTap: () => onNavigate?.call(1),
                           child: const Row(
                             children: [
-                              Text('See all', style: TextStyle(color: AppColors.primary, fontSize: 13)),
-                              Icon(Icons.chevron_right, color: AppColors.primary, size: 18),
+                              Text('See all',
+                                  style: TextStyle(
+                                      color: AppColors.primary, fontSize: 13)),
+                              Icon(Icons.chevron_right,
+                                  color: AppColors.primary, size: 18),
                             ],
                           ),
                         ),
@@ -257,7 +331,12 @@ class _TransactionMock {
   final bool isIncome;
   final IconData icon;
 
-  _TransactionMock({required this.title, required this.date, required this.amount, required this.isIncome, required this.icon});
+  _TransactionMock(
+      {required this.title,
+      required this.date,
+      required this.amount,
+      required this.isIncome,
+      required this.icon});
 }
 
 class _TransactionTile extends StatelessWidget {
@@ -271,12 +350,18 @@ class _TransactionTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(14), boxShadow: AppShadows.subtle),
+      decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: AppShadows.subtle),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: tx.isIncome ? AppColors.incomePale : AppColors.expensePale, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color:
+                    tx.isIncome ? AppColors.incomePale : AppColors.expensePale,
+                shape: BoxShape.circle),
             child: Icon(tx.icon, size: 18, color: color),
           ),
           const SizedBox(width: 12),
@@ -284,12 +369,18 @@ class _TransactionTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(tx.title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.textPrimary)),
+                Text(tx.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: AppColors.textPrimary)),
                 Text(tx.date, style: AppText.caption),
               ],
             ),
           ),
-          Text(tx.amount, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 14)),
+          Text(tx.amount,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: color, fontSize: 14)),
         ],
       ),
     );

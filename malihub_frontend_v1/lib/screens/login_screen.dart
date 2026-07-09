@@ -59,15 +59,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottomRight: Radius.circular(28),
               ),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const MalihubLogo(size: 48, translucentBackground: true),
-                const SizedBox(height: 16),
-                const Text('Welcome back',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
-                const SizedBox(height: 4),
-                const Text('Sign in to manage your finances',
+                MalihubLogo(size: 48, translucentBackground: true),
+                SizedBox(height: 16),
+                Text('Welcome back',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                SizedBox(height: 4),
+                Text('Sign in to manage your finances',
                     style: TextStyle(fontSize: 14, color: Colors.white70)),
               ],
             ),
@@ -87,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Email is required';
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        }
                         if (!value.contains('@')) return 'Enter a valid email';
                         return null;
                       },
@@ -100,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: true,
                       toggleObscure: true,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Password is required';
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
                         return null;
                       },
                     ),
@@ -110,10 +117,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+                            MaterialPageRoute(
+                                builder: (_) => const ForgotPasswordScreen()),
                           );
                         },
-                        child: const Text('Forgot Password?', style: TextStyle(color: AppColors.primary, fontSize: 13)),
+                        child: const Text('Forgot Password?',
+                            style: TextStyle(
+                                color: AppColors.primary, fontSize: 13)),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -123,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.white),
                             )
                           : const Text('Log In'),
                     ),
@@ -131,15 +142,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Don't have an account? ", style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                        const Text("Don't have an account? ",
+                            style: TextStyle(
+                                color: AppColors.textSecondary, fontSize: 13)),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => const RegistrationScreen()),
+                              MaterialPageRoute(
+                                  builder: (_) => const RegistrationScreen()),
                             );
                           },
                           child: const Text('Sign Up',
-                              style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13)),
+                              style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
                       ],
                     ),

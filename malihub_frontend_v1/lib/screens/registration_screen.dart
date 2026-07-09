@@ -64,16 +64,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), shape: BoxShape.circle),
-                    child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                    decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        shape: BoxShape.circle),
+                    child: const Icon(Icons.arrow_back,
+                        color: Colors.white, size: 20),
                   ),
                 ),
                 const SizedBox(height: 16),
                 const MalihubLogo(size: 44, translucentBackground: true),
                 const SizedBox(height: 14),
-                const Text('Create account', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+                const Text('Create account',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
                 const SizedBox(height: 4),
-                const Text('Start your financial journey today', style: TextStyle(fontSize: 14, color: Colors.white70)),
+                const Text('Start your financial journey today',
+                    style: TextStyle(fontSize: 14, color: Colors.white70)),
               ],
             ),
           ),
@@ -89,7 +97,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       label: 'Full Name',
                       hint: 'Amara Odhiambo',
                       controller: _nameController,
-                      validator: (value) => (value == null || value.isEmpty) ? 'Full name is required' : null,
+                      validator: (value) => (value == null || value.isEmpty)
+                          ? 'Full name is required'
+                          : null,
                     ),
                     const SizedBox(height: 16),
                     AppTextField(
@@ -98,7 +108,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Email is required';
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        }
                         if (!value.contains('@')) return 'Enter a valid email';
                         return null;
                       },
@@ -111,8 +123,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: true,
                       toggleObscure: true,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Password is required';
-                        if (value.length < 8) return 'Must be at least 8 characters';
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 8) {
+                          return 'Must be at least 8 characters';
+                        }
                         return null;
                       },
                     ),
@@ -123,17 +139,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       controller: _confirmController,
                       obscureText: true,
                       toggleObscure: true,
-                      validator: (value) => (value != _passwordController.text) ? 'Passwords do not match' : null,
+                      validator: (value) => (value != _passwordController.text)
+                          ? 'Passwords do not match'
+                          : null,
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _isLoading ? null : _handleRegister,
-                      style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryLight),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryLight),
                       child: _isLoading
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.white),
                             )
                           : const Text('Create Account'),
                     ),
@@ -141,11 +161,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Already have an account? ', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                        const Text('Already have an account? ',
+                            style: TextStyle(
+                                color: AppColors.textSecondary, fontSize: 13)),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
                           child: const Text('Log In',
-                              style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 13)),
+                              style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13)),
                         ),
                       ],
                     ),

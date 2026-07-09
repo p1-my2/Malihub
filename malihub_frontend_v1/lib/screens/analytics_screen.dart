@@ -25,7 +25,7 @@ class AnalyticsScreen extends StatelessWidget {
 
     const thisMonth = 24650.0;
     const lastMonth = 28000.0;
-    final maxVal = thisMonth > lastMonth ? thisMonth : lastMonth;
+    const maxVal = thisMonth > lastMonth ? thisMonth : lastMonth;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -40,14 +40,21 @@ class AnalyticsScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
                 decoration: const BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(28),
+                      bottomRight: Radius.circular(28)),
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Insights', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                    Text('Insights',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
-                    Text('Where your money went in June', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    Text('Where your money went in June',
+                        style: TextStyle(color: Colors.white70, fontSize: 13)),
                   ],
                 ),
               ),
@@ -59,31 +66,55 @@ class AnalyticsScreen extends StatelessWidget {
                     // Spending by category — donut
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Spending by Category', style: AppText.sectionTitle),
+                          const Text('Spending by Category',
+                              style: AppText.sectionTitle),
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              DonutChart(slices: slices, size: 140, strokeWidth: 20),
+                              DonutChart(
+                                  slices: slices, size: 140, strokeWidth: 20),
                               const SizedBox(width: 20),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: slices.map((s) {
-                                    final pct = total == 0 ? 0 : (s.value / total * 100).round();
+                                    final pct = total == 0
+                                        ? 0
+                                        : (s.value / total * 100).round();
                                     return Padding(
-                                      padding: const EdgeInsets.only(bottom: 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         children: [
-                                          Container(width: 10, height: 10, decoration: BoxDecoration(color: s.color, shape: BoxShape.circle)),
+                                          Container(
+                                              width: 10,
+                                              height: 10,
+                                              decoration: BoxDecoration(
+                                                  color: s.color,
+                                                  shape: BoxShape.circle)),
                                           const SizedBox(width: 8),
                                           Expanded(
-                                            child: Text(s.label, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary), overflow: TextOverflow.ellipsis),
+                                            child: Text(s.label,
+                                                style: const TextStyle(
+                                                    fontSize: 12.5,
+                                                    color:
+                                                        AppColors.textPrimary),
+                                                overflow:
+                                                    TextOverflow.ellipsis),
                                           ),
-                                          Text('$pct%', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+                                          Text('$pct%',
+                                              style: const TextStyle(
+                                                  fontSize: 12.5,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      AppColors.textSecondary)),
                                         ],
                                       ),
                                     );
@@ -100,13 +131,17 @@ class AnalyticsScreen extends StatelessWidget {
                     // This month vs last month
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('This Month vs Last Month', style: AppText.sectionTitle),
+                          const Text('This Month vs Last Month',
+                              style: AppText.sectionTitle),
                           const SizedBox(height: 20),
-                          Row(
+                          const Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Expanded(
@@ -118,7 +153,7 @@ class AnalyticsScreen extends StatelessWidget {
                                   textColor: AppColors.textSecondary,
                                 ),
                               ),
-                              const SizedBox(width: 20),
+                              SizedBox(width: 20),
                               Expanded(
                                 child: _ComparisonBar(
                                   label: 'This month',
@@ -133,13 +168,20 @@ class AnalyticsScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           Container(
                             padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(color: AppColors.goldPale, borderRadius: BorderRadius.circular(12)),
-                            child: Row(
-                              children: const [
-                                Icon(Icons.trending_down_rounded, color: AppColors.goldDeep, size: 18),
+                            decoration: BoxDecoration(
+                                color: AppColors.goldPale,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.trending_down_rounded,
+                                    color: AppColors.goldDeep, size: 18),
                                 SizedBox(width: 8),
                                 Expanded(
-                                  child: Text('12% less spent than last month', style: TextStyle(fontSize: 12.5, color: AppColors.goldDeep, fontWeight: FontWeight.w500)),
+                                  child: Text('12% less spent than last month',
+                                      style: TextStyle(
+                                          fontSize: 12.5,
+                                          color: AppColors.goldDeep,
+                                          fontWeight: FontWeight.w500)),
                                 ),
                               ],
                             ),
@@ -165,7 +207,12 @@ class _ComparisonBar extends StatelessWidget {
   final Color color;
   final Color textColor;
 
-  const _ComparisonBar({required this.label, required this.value, required this.maxValue, required this.color, required this.textColor});
+  const _ComparisonBar(
+      {required this.label,
+      required this.value,
+      required this.maxValue,
+      required this.color,
+      required this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +220,9 @@ class _ComparisonBar extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('KES ${value.toStringAsFixed(0)}', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: textColor)),
+        Text('KES ${value.toStringAsFixed(0)}',
+            style: TextStyle(
+                fontSize: 13, fontWeight: FontWeight.w700, color: textColor)),
         const SizedBox(height: 8),
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -183,7 +232,9 @@ class _ComparisonBar extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+        Text(label,
+            style:
+                const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
       ],
     );
   }

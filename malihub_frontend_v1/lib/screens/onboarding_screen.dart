@@ -8,7 +8,8 @@ class _OnboardingPage {
   final String body;
   final Widget illustration;
 
-  _OnboardingPage({required this.title, required this.body, required this.illustration});
+  _OnboardingPage(
+      {required this.title, required this.body, required this.illustration});
 }
 
 class OnboardingScreen extends StatefulWidget {
@@ -25,30 +26,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   late final List<_OnboardingPage> _pages = [
     _OnboardingPage(
       title: 'See every shilling',
-      body: 'Log income and expenses in seconds and always know exactly where you stand.',
+      body:
+          'Log income and expenses in seconds and always know exactly where you stand.',
       illustration: _StackedNotesIllustration(),
     ),
     _OnboardingPage(
       title: 'Budgets that hold the line',
-      body: 'Set a monthly budget per category and watch the ring fill as you spend.',
-      illustration: RingProgress(
+      body:
+          'Set a monthly budget per category and watch the ring fill as you spend.',
+      illustration: const RingProgress(
         progress: 0.62,
         size: 140,
         strokeWidth: 14,
         color: AppColors.primary,
-        center: const Icon(Icons.account_balance_wallet_rounded, color: AppColors.primary, size: 36),
+        center: Icon(Icons.account_balance_wallet_rounded,
+            color: AppColors.primary, size: 36),
       ),
     ),
     _OnboardingPage(
       title: 'Goals worth celebrating',
       body: 'Track savings goals and get a small win the moment you reach one.',
-      illustration: RingProgress(
+      illustration: const RingProgress(
         progress: 1.0,
         size: 140,
         strokeWidth: 14,
         color: AppColors.gold,
         trackColor: AppColors.goldPale,
-        center: const Icon(Icons.emoji_events_rounded, color: AppColors.gold, size: 36),
+        center:
+            Icon(Icons.emoji_events_rounded, color: AppColors.gold, size: 36),
       ),
     ),
   ];
@@ -80,7 +85,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.all(20),
                 child: TextButton(
                   onPressed: _finish,
-                  child: const Text('Skip', style: TextStyle(color: AppColors.textSecondary)),
+                  child: const Text('Skip',
+                      style: TextStyle(color: AppColors.textSecondary)),
                 ),
               ),
             ),
@@ -96,18 +102,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 160, child: Center(child: page.illustration)),
+                        SizedBox(
+                            height: 160,
+                            child: Center(child: page.illustration)),
                         const SizedBox(height: 40),
                         Text(
                           page.title,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                          style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.textPrimary),
                         ),
                         const SizedBox(height: 12),
                         Text(
                           page.body,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
+                          style: const TextStyle(
+                              fontSize: 14,
+                              color: AppColors.textSecondary,
+                              height: 1.5),
                         ),
                       ],
                     ),
@@ -138,7 +152,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   if (isLast) {
                     _finish();
                   } else {
-                    _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+                    _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut);
                   }
                 },
                 child: Text(isLast ? 'Get started' : 'Next'),
@@ -178,7 +194,8 @@ class _StackedNotesIllustration extends StatelessWidget {
           ),
           Positioned(
             top: -6,
-            child: _note(AppColors.primaryPale, AppColors.primary, elevated: true),
+            child:
+                _note(AppColors.primaryPale, AppColors.primary, elevated: true),
           ),
         ],
       ),
@@ -192,7 +209,14 @@ class _StackedNotesIllustration extends StatelessWidget {
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(14),
-        boxShadow: elevated ? [BoxShadow(color: accent.withOpacity(0.25), blurRadius: 16, offset: const Offset(0, 8))] : null,
+        boxShadow: elevated
+            ? [
+                BoxShadow(
+                    color: accent.withValues(alpha: 0.25),
+                    blurRadius: 16,
+                    offset: const Offset(0, 8))
+              ]
+            : null,
       ),
       child: Padding(
         padding: const EdgeInsets.all(14),
@@ -200,8 +224,17 @@ class _StackedNotesIllustration extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(width: 32, height: 6, decoration: BoxDecoration(color: accent, borderRadius: BorderRadius.circular(3))),
-            Container(width: 56, height: 6, decoration: BoxDecoration(color: accent.withOpacity(0.5), borderRadius: BorderRadius.circular(3))),
+            Container(
+                width: 32,
+                height: 6,
+                decoration: BoxDecoration(
+                    color: accent, borderRadius: BorderRadius.circular(3))),
+            Container(
+                width: 56,
+                height: 6,
+                decoration: BoxDecoration(
+                    color: accent.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(3))),
           ],
         ),
       ),

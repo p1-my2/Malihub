@@ -11,7 +11,8 @@ class MalihubLogo extends StatelessWidget {
   final double size;
   final bool translucentBackground;
 
-  const MalihubLogo({super.key, this.size = 48, this.translucentBackground = false});
+  const MalihubLogo(
+      {super.key, this.size = 48, this.translucentBackground = false});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,9 @@ class MalihubLogo extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: translucentBackground ? Colors.white.withOpacity(0.16) : AppColors.primary,
+        color: translucentBackground
+            ? Colors.white.withValues(alpha: 0.16)
+            : AppColors.primary,
         borderRadius: BorderRadius.circular(radius),
       ),
       child: Center(

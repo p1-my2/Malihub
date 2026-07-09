@@ -4,10 +4,10 @@ import 'app_colors.dart';
 /// Type scale for Malihub.
 ///
 /// We use the system-bundled Roboto everywhere (reliable offline, no font
-/// download step) but carry personality through weight, letter-spacing,
-/// and case rather than an exotic typeface: big balance figures are tight
-/// and heavy, section eyebrows are small, spaced-out, and uppercase — two
-/// distinct voices from one font family.
+// download step) but carry personality through weight, letter-spacing,
+// and case rather than an exotic typeface: big balance figures are tight
+// and heavy, section eyebrows are small, spaced-out, and uppercase — two
+// distinct voices from one font family.
 class AppText {
   AppText._();
 
@@ -79,9 +79,11 @@ class AppSpacing {
 class AppShadows {
   AppShadows._();
   static List<BoxShadow> soft = [
-    BoxShadow(color: AppColors.shadow, blurRadius: 20, offset: const Offset(0, 8)),
+    const BoxShadow(
+        color: AppColors.shadow, blurRadius: 20, offset: Offset(0, 8)),
   ];
   static List<BoxShadow> subtle = [
-    BoxShadow(color: AppColors.shadow, blurRadius: 10, offset: const Offset(0, 3)),
+    const BoxShadow(
+        color: AppColors.shadow, blurRadius: 10, offset: Offset(0, 3)),
   ];
 }

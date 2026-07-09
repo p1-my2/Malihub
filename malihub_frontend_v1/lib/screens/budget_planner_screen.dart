@@ -46,8 +46,9 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final remaining = monthlyBudget - currentSpending;
-    final usedFraction = (currentSpending / monthlyBudget).clamp(0.0, 1.0).toDouble();
+    const remaining = monthlyBudget - currentSpending;
+    final usedFraction =
+        (currentSpending / monthlyBudget).clamp(0.0, 1.0).toDouble();
     final target = double.tryParse(_targetController.text) ?? 20000;
     final savingsFraction = (savingsSaved / target).clamp(0.0, 1.0).toDouble();
 
@@ -64,14 +65,21 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
                 decoration: const BoxDecoration(
                   color: AppColors.primary,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(28),
+                      bottomRight: Radius.circular(28)),
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Budget Planner', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                    Text('Budget Planner',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
-                    Text('June 2026', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    Text('June 2026',
+                        style: TextStyle(color: Colors.white70, fontSize: 13)),
                   ],
                 ),
               ),
@@ -82,15 +90,24 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                   children: [
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Monthly Budget', style: AppText.sectionTitle),
+                          const Text('Monthly Budget',
+                              style: AppText.sectionTitle),
                           const SizedBox(height: 14),
-                          const Text('MONTHLY BUDGET (KES)', style: AppText.eyebrow),
+                          const Text('MONTHLY BUDGET (KES)',
+                              style: AppText.eyebrow),
                           const SizedBox(height: 6),
-                          TextField(controller: _budgetController, keyboardType: TextInputType.number, onChanged: (_) => setState(() {}), style: AppText.body),
+                          TextField(
+                              controller: _budgetController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (_) => setState(() {}),
+                              style: AppText.body),
                         ],
                       ),
                     ),
@@ -99,11 +116,15 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                     // Spending overview — ring takes the place of a flat bar.
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Spending Overview', style: AppText.sectionTitle),
+                          const Text('Spending Overview',
+                              style: AppText.sectionTitle),
                           const SizedBox(height: 16),
                           Row(
                             children: [
@@ -113,13 +134,19 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                                 strokeWidth: 9,
                                 color: AppColors.primary,
                                 center: Text('${(usedFraction * 100).round()}%',
-                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary)),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
                                   "You've used ${(usedFraction * 100).round()}% of this month's budget.",
-                                  style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4),
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      color: AppColors.textSecondary,
+                                      height: 1.4),
                                 ),
                               ),
                             ],
@@ -127,11 +154,26 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              Expanded(child: StatTile(label: 'Monthly Budget', value: 'KES ${monthlyBudget.toStringAsFixed(0)}', valueColor: AppColors.primary)),
+                              Expanded(
+                                  child: StatTile(
+                                      label: 'Monthly Budget',
+                                      value:
+                                          'KES ${monthlyBudget.toStringAsFixed(0)}',
+                                      valueColor: AppColors.primary)),
                               const SizedBox(width: 10),
-                              Expanded(child: StatTile(label: 'Current Spending', value: 'KES ${currentSpending.toStringAsFixed(0)}', valueColor: AppColors.expense)),
+                              Expanded(
+                                  child: StatTile(
+                                      label: 'Current Spending',
+                                      value:
+                                          'KES ${currentSpending.toStringAsFixed(0)}',
+                                      valueColor: AppColors.expense)),
                               const SizedBox(width: 10),
-                              Expanded(child: StatTile(label: 'Remaining', value: 'KES ${remaining.toStringAsFixed(0)}', valueColor: AppColors.primary)),
+                              Expanded(
+                                  child: StatTile(
+                                      label: 'Remaining',
+                                      value:
+                                          'KES ${remaining.toStringAsFixed(0)}',
+                                      valueColor: AppColors.primary)),
                             ],
                           ),
                         ],
@@ -142,29 +184,46 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                     // Category budgets — new section.
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Category Budgets', style: AppText.sectionTitle),
+                          const Text('Category Budgets',
+                              style: AppText.sectionTitle),
                           const SizedBox(height: 14),
                           ..._categoryBudgets.map((c) {
                             final spent = c['spent'] as double;
                             final budget = c['budget'] as double;
                             final over = spent > budget;
-                            final fraction = (spent / budget).clamp(0.0, 1.0).toDouble();
+                            final fraction =
+                                (spent / budget).clamp(0.0, 1.0).toDouble();
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 14),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(c['name'] as String, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                                      Text(c['name'] as String,
+                                          style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.textPrimary)),
                                       Text(
                                         'KES ${spent.toStringAsFixed(0)} / ${budget.toStringAsFixed(0)}',
-                                        style: TextStyle(fontSize: 12, color: over ? AppColors.expense : AppColors.textSecondary, fontWeight: over ? FontWeight.w600 : FontWeight.w400),
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: over
+                                                ? AppColors.expense
+                                                : AppColors.textSecondary,
+                                            fontWeight: over
+                                                ? FontWeight.w600
+                                                : FontWeight.w400),
                                       ),
                                     ],
                                   ),
@@ -175,7 +234,9 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                                       value: fraction,
                                       minHeight: 7,
                                       backgroundColor: AppColors.surfaceSunken,
-                                      valueColor: AlwaysStoppedAnimation(over ? AppColors.expense : AppColors.primary),
+                                      valueColor: AlwaysStoppedAnimation(over
+                                          ? AppColors.expense
+                                          : AppColors.primary),
                                     ),
                                   ),
                                 ],
@@ -190,7 +251,10 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                     // Savings goal — gold ring, ties visually to the Dashboard.
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(16), boxShadow: AppShadows.subtle),
+                      decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: AppShadows.subtle),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -198,17 +262,26 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                             children: [
                               Container(
                                 padding: const EdgeInsets.all(6),
-                                decoration: const BoxDecoration(color: AppColors.goldPale, shape: BoxShape.circle),
-                                child: const Icon(Icons.emoji_events_rounded, size: 16, color: AppColors.goldDeep),
+                                decoration: const BoxDecoration(
+                                    color: AppColors.goldPale,
+                                    shape: BoxShape.circle),
+                                child: const Icon(Icons.emoji_events_rounded,
+                                    size: 16, color: AppColors.goldDeep),
                               ),
                               const SizedBox(width: 8),
-                              const Text('Savings Goal', style: AppText.sectionTitle),
+                              const Text('Savings Goal',
+                                  style: AppText.sectionTitle),
                             ],
                           ),
                           const SizedBox(height: 14),
-                          const Text('TARGET AMOUNT (KES)', style: AppText.eyebrow),
+                          const Text('TARGET AMOUNT (KES)',
+                              style: AppText.eyebrow),
                           const SizedBox(height: 6),
-                          TextField(controller: _targetController, keyboardType: TextInputType.number, onChanged: (_) => setState(() {}), style: AppText.body),
+                          TextField(
+                              controller: _targetController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (_) => setState(() {}),
+                              style: AppText.body),
                           const SizedBox(height: 16),
                           Row(
                             children: [
@@ -224,9 +297,16 @@ class _BudgetPlannerScreenState extends State<BudgetPlannerScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('KES 52,350 saved', style: TextStyle(fontSize: 12, color: AppColors.goldDeep, fontWeight: FontWeight.w600)),
-                                    Text('${(savingsFraction * 100).round()}% of KES ${target.toStringAsFixed(0)}',
-                                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                    const Text('KES 52,350 saved',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.goldDeep,
+                                            fontWeight: FontWeight.w600)),
+                                    Text(
+                                        '${(savingsFraction * 100).round()}% of KES ${target.toStringAsFixed(0)}',
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary)),
                                   ],
                                 ),
                               ),
