@@ -1,150 +1,90 @@
-# MaliHub — Flutter Frontend
+# Malihub
 
-MaliHub is a cross-platform personal finance management application built with Flutter for Android and iOS. The frontend focuses on providing a clean, intuitive user experience through a consistent design system, custom-built visual components, and a complete user journey from onboarding to financial insights.
+Malihub is a personal finance management mobile app, built as part of a 3-week Industrial-Based Learning (IBL) academic project. Users can track income and expenses, categorize transactions, and visualize spending — backed by a real database and a live production deployment.
 
-The application has been designed with scalability in mind, allowing the current mock data to be replaced with live backend services as development progresses.
+## Team
 
----
+| Role | Responsibility |
+|---|---|
+| **Samuel** (Tech Lead) | Full-stack coordination, Railway deployment, cross-stack integration and fixes |
+| Frontend | Flutter/Dart development |
+| Backend | Node.js/Express API development |
+| Database | MySQL schema and data management |
 
-## Design System
+## Tech Stack
 
-MaliHub uses a carefully selected colour palette centred around forest green (`#1F8A4C`), complemented by a darker forest shade for depth, muted gold to highlight achievements and completed savings goals, ink green for primary text, and brick red to indicate expenses.
+### Frontend
+- Flutter / Dart (pinned to **3.44.4**)
+- Android-only (iOS deprioritized, not verified working)
+- Tested on a physical Android device via USB debugging
 
-A circular progress ring forms the application's signature visual element. Rather than being limited to a single screen, it is reused throughout the Budget, Savings, and Analytics modules to provide users with a consistent visual representation of financial progress.
+### Backend
+- Node.js + Express
+- Prisma ORM
+- MySQL
+- JWT authentication (7-day expiry) + bcrypt password hashing
 
-The complete colour palette, typography, and theme definitions can be found in:
+### Hosting & Infrastructure
+- **Railway** hosts both the backend service and the MySQL database
+- Auto-deploys on every push to GitHub
+- Frontend and backend live in the same repo — Railway's **Root Directory** setting distinguishes the two services
 
-* `lib/theme/app_colors.dart`
-* `lib/theme/app_text.dart`
-* `lib/theme/app_theme.dart`
+### Tools
+- VS Code, GitHub Desktop, MySQL Workbench
+- Figma (design), LucidChart (diagrams)
 
----
+## Repository & Deployment
+
+- **GitHub:** `Samuel20-byte/Apptesting` (version control — not application hosting)
+- **Backend (live):** `https://apptesting-production.up.railway.app/api`
 
 ## Features
 
-### User Interface
+- User registration & login (JWT + bcrypt)
+- Income and Expense tracking with distinct categories (`category_type` ENUM column in the DB, filtered per tab in Flutter)
+- Spending breakdown via donut chart, using a stable alphabetical category-color mapping
+- Custom app branding/icon (generated via `flutter_launcher_icons` + Python/Pillow)
 
-The application currently includes the following screens:
+## Getting Started
 
-* Splash Screen
-* Onboarding
-* Login
-* User Registration
-* Dashboard
-* Transactions
-* Transaction Details
-* Budget Planner
-* Analytics and Insights
-* Profile
-* Notifications
-
-Each screen has been designed to support a straightforward and intuitive user experience while maintaining a consistent visual style throughout the application.
-
-### Navigation
-
-Navigation is handled through a bottom navigation bar containing four primary sections:
-
-* Home
-* Transactions
-* Insights
-* Budget
-
-Additional screens, including Profile and Notifications, are accessed directly from the Dashboard through the avatar and notification icons.
-
-
-## Custom Widgets
-
-To maintain consistency and reduce code duplication, several reusable widgets have been developed specifically for MaliHub.
-
-These include:
-
-* `ring_progress.dart` – reusable circular progress indicator used throughout the application.
-* `donut_chart.dart` – custom multi-segment doughnut chart built using Flutter's `CustomPainter`.
-* `malihub_logo.dart` – shared application logo used across multiple screens.
-* `app_text_field.dart` – reusable text input component.
-* `stat_tile.dart` – statistic summary cards.
-* `malihub_bottom_nav.dart` – bottom navigation component used across the application's main screens.
-
----
-
-## App Icon
-
-The app icons are found in assests/icon. 
-A high-resolution PNG versions for the app icon foreground and app icon(menu) are provided.
-
----
-
-## Running the Application
-
-Run the application on VS code by pressing F5 while on main.dart. You can select the device to run the app, e.g., chrome, edge, mobile phone (android or ios through usb debugging) or even virtual devices (emulators).
----
-
-## Project Structure
-
-```text
-lib/
-│
-├── main.dart
-├── theme/
-│   ├── app_colors.dart
-│   ├── app_text.dart
-│   └── app_theme.dart
-│
-├── widgets/
-│   ├── malihub_logo.dart
-│   ├── ring_progress.dart
-│   ├── donut_chart.dart
-│   ├── app_text_field.dart
-│   ├── stat_tile.dart
-│   └── malihub_bottom_nav.dart
-│
-├── screens/
-│   ├── splash_screen.dart
-│   ├── onboarding_screen.dart
-│   ├── login_screen.dart
-│   ├── forgot_password_screen.dart
-│   ├── registration_screen.dart
-│   ├── main_shell.dart
-│   ├── dashboard_screen.dart
-│   ├── transactions_screen.dart
-│   ├── transaction_detail_screen.dart
-│   ├── analytics_screen.dart
-│   ├── budget_planner_screen.dart
-│   ├── profile_screen.dart
-│   └── notifications_screen.dart
-│
-└── app_icon/icon/the png files
+### Backend Setup
+```bash
+cd backend
+npm install
+```
+Create a `.env` file:
+```
+DATABASE_URL=<mysql-connection-string>
+JWT_SECRET=<fixed-secret-value>
+```
+```bash
+npx prisma generate
+npm run dev
 ```
 
----
+> `schema.prisma` needs `binaryTargets = ["native", "debian-openssl-3.0.x"]` for Railway/Linux compatibility, and `package.json` needs a `"build": "prisma generate"` script.
 
-## Backend Integration
+### Frontend Setup
+```bash
+cd frontend
+flutter pub get
+flutter run
+```
+- Point the API base URL to the backend — local LAN IP for development, or the Railway URL for production.
+- A physical Android device is recommended over an emulator (LDPlayer's `10.0.2.2` alias hasn't been reliable).
 
-The frontend is already inegrated with the Railway hosted Backend Service through the railway provided API. 
+## Future Considerations
 
-Several areas have been identified for discussion during backend integration:
+- **Password recovery (forgot password):** Deferred from the current MVP due to project timeline constraints. An initial implementation (Nodemailer over Gmail SMTP) surfaced a Railway-specific networking issue affecting outbound SMTP delivery; resolving this reliably was deprioritized in favor of core features, and is planned for a future release.
+- Containerization (Docker)
+- Migration from MySQL to PostgreSQL
+- Render / Supabase as alternative hosting to Railway
+- Firebase App Distribution for APK delivery to testers
+- Automated financial insights as a literacy-building feature
+- Automated testing coverage
 
-* **Category Budgets** – The current interface assumes that a budget can contain multiple category allocations. The database design should confirm whether this relationship will be implemented as a single category per budget or through a separate join table.
+## Notes on Accuracy (for presentation/documentation)
 
-* **Notifications** – Notification items currently display information only. Deep linking to related budgets or savings goals will depend on whether the notification model includes references such as `budget_id` or `goal_id` but this feature isn't fully operational for this MVP it is simply for presentation purposes since the MySQL deployment through railway limits the features.
-
-* **Analytics** – The Analytics screen expects aggregated spending data, such as a category summary endpoint (for example, `GET /api/transactions/summary`). If this endpoint is not currently available, it will need to be added to the backend before live integration can be completed.
-
-Once the API contracts have been finalised, the existing mock data can be replaced with live data retrieved from the backend.
-
----
-
-## Future Development
-
-Planned improvements to the frontend include:
-
-* Live backend integration
-* Improved analytics and reporting
-* Push notifications
-* Dark mode
-* Performance optimisations
-* Accessibility improvements
-* Additional animations and user interface refinements
-* Fully function "forget password" mechanism that sends change password emails to users
-
-As development continues, the application will evolve from a prototype using mock data into a fully functional personal finance management system backed by the MaliHub REST API.
+- The app is **Android-only** in practice — iOS support has not been verified.
+- JWT sessions **expire after 7 days** — they are not indefinite.
+- GitHub is used for **version control**, not application hosting; Railway is the host.
