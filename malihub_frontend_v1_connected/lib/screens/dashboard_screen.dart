@@ -104,7 +104,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final s = _summary;
     if (s == null || s.previousMonthExpense <= 0) return null;
     final change =
-        ((s.totalExpense - s.previousMonthExpense) / s.previousMonthExpense) * 100;
+        ((s.totalExpense - s.previousMonthExpense) / s.previousMonthExpense) *
+            100;
     if (change.abs() < 1) return null;
     if (change < 0) {
       return "You've spent ${change.abs().round()}% less than last month. Keep it up.";
@@ -194,7 +195,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             borderRadius: BorderRadius.circular(20),
                             onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (_) => const NotificationsScreen())),
+                                    builder: (_) =>
+                                        const NotificationsScreen())),
                             child: Container(
                               width: 40,
                               height: 40,
@@ -202,15 +204,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               decoration: BoxDecoration(
                                   color: Colors.white.withValues(alpha: 0.16),
                                   shape: BoxShape.circle),
-                              child: const Icon(Icons.notifications_none_rounded,
-                                  color: Colors.white, size: 20),
+                              child: const Icon(
+                                  Icons.notifications_none_rounded,
+                                  color: Colors.white,
+                                  size: 20),
                             ),
                           ),
                           const SizedBox(width: 10),
                           InkWell(
                             borderRadius: BorderRadius.circular(20),
                             onTap: () async {
-                              final updated = await Navigator.of(context).push<AppUser>(
+                              final updated =
+                                  await Navigator.of(context).push<AppUser>(
                                 MaterialPageRoute(
                                     builder: (_) => ProfileScreen(
                                         user: widget.user,
@@ -331,11 +336,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               strokeWidth: 8,
                               color: AppColors.gold,
                               trackColor: AppColors.goldPale,
-                              center: Text('${(savingsProgress * 100).round()}%',
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.goldDeep)),
+                              center: const SizedBox.shrink(),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
@@ -356,7 +357,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           fontSize: 12,
                                           color: AppColors.textSecondary)),
                                   if (goal != null)
-                                    Text('Target: ${formatCurrency(goal.targetAmount)}',
+                                    Text(
+                                        'Target: ${formatCurrency(goal.targetAmount)}',
                                         style: const TextStyle(
                                             fontSize: 12,
                                             color: AppColors.textSecondary)),
@@ -409,7 +411,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               children: [
                                 Text('See all',
                                     style: TextStyle(
-                                        color: AppColors.primary, fontSize: 13)),
+                                        color: AppColors.primary,
+                                        fontSize: 13)),
                                 Icon(Icons.chevron_right,
                                     color: AppColors.primary, size: 18),
                               ],
@@ -421,7 +424,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       if (_recentTransactions.isEmpty)
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16),
-                          child: Text('No transactions yet — add your first one!',
+                          child: Text(
+                              'No transactions yet — add your first one!',
                               style: AppText.caption),
                         )
                       else
@@ -487,8 +491,7 @@ class _TransactionTile extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-              formatSignedCurrency(tx.isIncome ? tx.amount : -tx.amount),
+          Text(formatSignedCurrency(tx.isIncome ? tx.amount : -tx.amount),
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: color, fontSize: 14)),
         ],
