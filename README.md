@@ -6,10 +6,10 @@ Malihub is a personal finance management mobile app, built as part of a 3-week I
 
 | Role | Responsibility |
 |---|---|
-| **Samuel** (Tech Lead) | Full-stack coordination, Railway deployment, cross-stack integration and fixes |
+| Tech Lead/Database admin | Full-stack coordination, Railway deployment, MySQL schema and data management |
 | Frontend | Flutter/Dart development |
 | Backend | Node.js/Express API development |
-| Database | MySQL schema and data management |
+| System architecture |  systems analysis, cross-stack integration and fixes |
 
 ## Tech Stack
 
